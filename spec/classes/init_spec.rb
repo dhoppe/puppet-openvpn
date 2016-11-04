@@ -1,23 +1,20 @@
 require 'spec_helper'
 
 describe 'openvpn', type: :class do
-  ['Debian'].each do |osfamily|
-    let(:facts) do
-      {
-        osfamily: osfamily,
-        ipaddress_primary: '10.0.2.15'
-      }
-    end
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
+      end
 
-    it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_anchor('openvpn::begin') }
-    it { is_expected.to contain_class('openvpn::params') }
-    it { is_expected.to contain_class('openvpn::install') }
-    it { is_expected.to contain_class('openvpn::config') }
-    it { is_expected.to contain_class('openvpn::service') }
-    it { is_expected.to contain_anchor('openvpn::end') }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_anchor('openvpn::begin') }
+      it { is_expected.to contain_class('openvpn::params') }
+      it { is_expected.to contain_class('openvpn::install') }
+      it { is_expected.to contain_class('openvpn::config') }
+      it { is_expected.to contain_class('openvpn::service') }
+      it { is_expected.to contain_anchor('openvpn::end') }
 
-    context "on #{osfamily}" do
       describe 'openvpn::install' do
         context 'defaults' do
           it do
@@ -218,13 +215,26 @@ describe 'openvpn', type: :class do
               'require' => 'File[easy-rsa.conf]'
             )
           end
-          it do
-            is_expected.to contain_exec('easy-rsa.dir').with(
-              'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
-              'creates' => '/etc/openvpn/easy-rsa',
-              'require' => 'Package[openvpn]'
-            )
+
+          case facts[:lsbdistcodename]
+          when 'jessie', 'trusty'
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/easy-rsa /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
+          else
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_exec('server.key').with(
               'command' => '. ./vars && ./pkitool --server server',
@@ -258,14 +268,18 @@ describe 'openvpn', type: :class do
               'require' => 'Exec[easy-rsa.dir]'
             )
           end
-          it do
-            is_expected.to contain_file('openssl.cnf').with(
-              'ensure'  => 'link',
-              'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
-              'before'  => 'Exec[crl.pem]',
-              'require' => 'Exec[easy-rsa.dir]'
-            )
+
+          unless facts[:lsbdistcodename] == 'squeeze'
+            it do
+              is_expected.to contain_file('openssl.cnf').with(
+                'ensure'  => 'link',
+                'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
+                'before'  => 'Exec[crl.pem]',
+                'require' => 'Exec[easy-rsa.dir]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_file('openvpn.conf').with(
               'ensure'  => 'present',
@@ -304,13 +318,26 @@ describe 'openvpn', type: :class do
               'require' => 'File[easy-rsa.conf]'
             )
           end
-          it do
-            is_expected.to contain_exec('easy-rsa.dir').with(
-              'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
-              'creates' => '/etc/openvpn/easy-rsa',
-              'require' => 'Package[openvpn]'
-            )
+
+          case facts[:lsbdistcodename]
+          when 'jessie', 'trusty'
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/easy-rsa /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
+          else
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_exec('server.key').with(
               'command' => '. ./vars && ./pkitool --server server',
@@ -344,14 +371,18 @@ describe 'openvpn', type: :class do
               'require' => 'Exec[easy-rsa.dir]'
             )
           end
-          it do
-            is_expected.to contain_file('openssl.cnf').with(
-              'ensure'  => 'link',
-              'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
-              'before'  => 'Exec[crl.pem]',
-              'require' => 'Exec[easy-rsa.dir]'
-            )
+
+          unless facts[:lsbdistcodename] == 'squeeze'
+            it do
+              is_expected.to contain_file('openssl.cnf').with(
+                'ensure'  => 'link',
+                'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
+                'before'  => 'Exec[crl.pem]',
+                'require' => 'Exec[easy-rsa.dir]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_file('openvpn.conf').with(
               'ensure'  => 'present',
@@ -390,13 +421,26 @@ describe 'openvpn', type: :class do
               'require' => 'File[easy-rsa.conf]'
             )
           end
-          it do
-            is_expected.to contain_exec('easy-rsa.dir').with(
-              'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
-              'creates' => '/etc/openvpn/easy-rsa',
-              'require' => 'Package[openvpn]'
-            )
+
+          case facts[:lsbdistcodename]
+          when 'jessie', 'trusty'
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/easy-rsa /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
+          else
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_exec('server.key').with(
               'command' => '. ./vars && ./pkitool --server server',
@@ -430,14 +474,18 @@ describe 'openvpn', type: :class do
               'require' => 'Exec[easy-rsa.dir]'
             )
           end
-          it do
-            is_expected.to contain_file('openssl.cnf').with(
-              'ensure'  => 'link',
-              'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
-              'before'  => 'Exec[crl.pem]',
-              'require' => 'Exec[easy-rsa.dir]'
-            )
+
+          unless facts[:lsbdistcodename] == 'squeeze'
+            it do
+              is_expected.to contain_file('openssl.cnf').with(
+                'ensure'  => 'link',
+                'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
+                'before'  => 'Exec[crl.pem]',
+                'require' => 'Exec[easy-rsa.dir]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_file('openvpn.conf').with(
               'ensure'  => 'present',
@@ -479,13 +527,26 @@ describe 'openvpn', type: :class do
               'require' => 'File[easy-rsa.conf]'
             )
           end
-          it do
-            is_expected.to contain_exec('easy-rsa.dir').with(
-              'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
-              'creates' => '/etc/openvpn/easy-rsa',
-              'require' => 'Package[openvpn]'
-            )
+
+          case facts[:lsbdistcodename]
+          when 'jessie', 'trusty'
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/easy-rsa /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
+          else
+            it do
+              is_expected.to contain_exec('easy-rsa.dir').with(
+                'command' => 'cp -r /usr/share/doc/openvpn/examples/easy-rsa/2.0 /etc/openvpn/easy-rsa',
+                'creates' => '/etc/openvpn/easy-rsa',
+                'require' => 'Package[openvpn]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_exec('server.key').with(
               'command' => '. ./vars && ./pkitool --server server',
@@ -519,14 +580,18 @@ describe 'openvpn', type: :class do
               'require' => 'Exec[easy-rsa.dir]'
             )
           end
-          it do
-            is_expected.to contain_file('openssl.cnf').with(
-              'ensure'  => 'link',
-              'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
-              'before'  => 'Exec[crl.pem]',
-              'require' => 'Exec[easy-rsa.dir]'
-            )
+
+          unless facts[:lsbdistcodename] == 'squeeze'
+            it do
+              is_expected.to contain_file('openssl.cnf').with(
+                'ensure'  => 'link',
+                'target'  => '/etc/openvpn/easy-rsa/openssl-1.0.0.cnf',
+                'before'  => 'Exec[crl.pem]',
+                'require' => 'Exec[easy-rsa.dir]'
+              )
+            end
           end
+
           it do
             is_expected.to contain_file('openvpn.conf').with(
               'ensure'  => 'present',

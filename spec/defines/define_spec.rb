@@ -1,17 +1,15 @@
 require 'spec_helper'
 
 describe 'openvpn::define', type: :define do
-  ['Debian'].each do |osfamily|
-    let(:facts) do
-      {
-        osfamily: osfamily,
-        ipaddress_primary: '10.0.2.15'
-      }
-    end
-    let(:pre_condition) { 'include openvpn' }
-    let(:title) { 'openvpn.conf' }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
+      end
 
-    context "on #{osfamily}" do
+      let(:pre_condition) { 'include openvpn' }
+      let(:title) { 'openvpn.conf' }
+
       context 'when source file' do
         let(:params) do
           {
