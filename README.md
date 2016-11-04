@@ -9,15 +9,15 @@
 #### Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with openvpn](#setup)
+1. [Module Description - What the module does and why it is useful](#module-description)
+1. [Setup - The basics of getting started with openvpn](#setup)
     * [What openvpn affects](#what-openvpn-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with openvpn](#beginning-with-openvpn)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-6. [Limitations - OS compatibility, etc.](#limitations)
-7. [Development - Guide for contributing to the module](#development)
+1. [Usage - Configuration options and additional functionality](#usage)
+1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Development - Guide for contributing to the module](#development)
 
 ## Overview
 
@@ -25,7 +25,8 @@ This module installs, configures and manages the OpenVPN service.
 
 ## Module Description
 
-This module handles installing, configuring and running OpenVPN across a range of operating systems and distributions.
+This module handles installing, configuring and running OpenVPN across a range of
+operating systems and distributions.
 
 ## Setup
 
@@ -101,7 +102,8 @@ Deploy the configuration files from source directory.
     }
 ```
 
-Deploy the configuration files from source directory ***(Unmanaged configuration files will be removed)***.
+Deploy the configuration files from source directory ***(Unmanaged configuration
+files will be removed)***.
 
 ```puppet
     class { 'openvpn':
@@ -134,7 +136,8 @@ Deploy the configuration file from template.
     }
 ```
 
-Deploy the configuration file from custom template ***(Additional parameters can be defined)***.
+Deploy the configuration file from custom template ***(Additional parameters can
+be defined)***.
 
 ```puppet
     class { 'openvpn':
@@ -192,7 +195,8 @@ Disable the openvpn service.
 
 #### `package_ensure`
 
-Determines if the package should be installed. Valid values are 'present', 'latest', 'absent' and 'purged'. Defaults to 'present'.
+Determines if the package should be installed. Valid values are 'present',
+'latest', 'absent' and 'purged'. Defaults to 'present'.
 
 #### `package_name`
 
@@ -204,7 +208,8 @@ Determines if additional packages should be managed. Defaults to 'undef'.
 
 #### `config_dir_ensure`
 
-Determines if the configuration directory should be present. Valid values are 'absent' and 'directory'. Defaults to 'directory'.
+Determines if the configuration directory should be present. Valid values are
+'absent' and 'directory'. Defaults to 'directory'.
 
 #### `config_dir_path`
 
@@ -212,11 +217,13 @@ Determines if the configuration directory should be managed. Defaults to '/etc/o
 
 #### `config_dir_purge`
 
-Determines if unmanaged configuration files should be removed. Valid values are 'true' and 'false'. Defaults to 'false'.
+Determines if unmanaged configuration files should be removed. Valid values are
+'true' and 'false'. Defaults to 'false'.
 
 #### `config_dir_recurse`
 
-Determines if the configuration directory should be recursively managed. Valid values are 'true' and 'false'. Defaults to 'true'.
+Determines if the configuration directory should be recursively managed. Valid
+values are 'true' and 'false'. Defaults to 'true'.
 
 #### `config_dir_source`
 
@@ -224,7 +231,8 @@ Determines the source of a configuration directory. Defaults to 'undef'.
 
 #### `config_file_ensure`
 
-Determines if the configuration file should be present. Valid values are 'absent' and 'present'. Defaults to 'present'.
+Determines if the configuration file should be present. Valid values are 'absent'
+and 'present'. Defaults to 'present'.
 
 #### `config_file_path`
 
@@ -256,7 +264,8 @@ Determines the content of a configuration file. Defaults to 'undef'.
 
 #### `config_file_notify`
 
-Determines if the service should be restarted after configuration changes. Defaults to 'Service[openvpn]'.
+Determines if the service should be restarted after configuration changes.
+Defaults to 'Service[openvpn]'.
 
 #### `config_file_require`
 
@@ -264,7 +273,8 @@ Determines which package a configuration file depends on. Defaults to 'Package[o
 
 #### `config_file_hash`
 
-Determines which configuration files should be managed via `openvpn::define`. Defaults to '{}'.
+Determines which configuration files should be managed via `openvpn::define`.
+Defaults to '{}'.
 
 #### `config_file_options_hash`
 
@@ -272,7 +282,8 @@ Determines which parameters should be passed to an ERB template. Defaults to '{}
 
 #### `service_ensure`
 
-Determines if the service should be running or not. Valid values are 'running' and 'stopped'. Defaults to 'running'.
+Determines if the service should be running or not. Valid values are 'running'
+and 'stopped'. Defaults to 'running'.
 
 #### `service_name`
 
@@ -280,7 +291,8 @@ Determines the name of service to manage. Defaults to 'openvpn'.
 
 #### `service_enable`
 
-Determines if the service should be enabled at boot. Valid values are 'true' and 'false'. Defaults to 'true'.
+Determines if the service should be enabled at boot. Valid values are 'true'
+and 'false'. Defaults to 'true'.
 
 #### `ca_expire`
 
@@ -288,43 +300,53 @@ Determines the number of days to certify the CA certificate for. Defaults to '36
 
 #### `key_expire`
 
-Determines the number of days to certify the server certificate for. Defaults to '3650'.
+Determines the number of days to certify the server certificate for. Defaults
+to '3650'.
 
 #### `key_size`
 
-Determines the length of SSL keys (in bits) generated by this module. Defaults to '1024'.
+Determines the length of SSL keys (in bits) generated by this module. Defaults
+to '1024'.
 
 #### `key_country`
 
-Determines the country to be used for the SSL certificate, mandatory for server mode. Defaults to 'undef'.
+Determines the country to be used for the SSL certificate, mandatory for server
+mode. Defaults to 'undef'.
 
 #### `key_province`
 
-Determines the province to be used for the SSL certificate, mandatory for server mode. Defaults to 'undef'.
+Determines the province to be used for the SSL certificate, mandatory for server
+mode. Defaults to 'undef'.
 
 #### `key_city`
 
-Determines the city to be used for the SSL certificate, mandatory for server mode. Defaults to 'undef'.
+Determines the city to be used for the SSL certificate, mandatory for server mode.
+Defaults to 'undef'.
 
 #### `key_organization`
 
-Determines the organization to be used for the SSL certificate, mandatory for server mode. Defaults to "$::domain".
+Determines the organization to be used for the SSL certificate, mandatory for
+server mode. Defaults to "$::domain".
 
 #### `key_email`
 
-Determines the email to be used for the SSL certificate, mandatory for server mode. Defaults to "admin@${::domain}".
+Determines the email to be used for the SSL certificate, mandatory for server
+mode. Defaults to "admin@${::domain}".
 
 #### `key_cn`
 
-Determines the value for commonName_default variable in openssl.cnf and KEY_CN in vars. Defaults to ''.
+Determines the value for commonName_default variable in openssl.cnf and KEY_CN
+in vars. Defaults to ''.
 
 #### `key_name`
 
-Determines the value for name_default variable in openssl.cnf and KEY_NAME in vars. Defaults to ''.
+Determines the value for name_default variable in openssl.cnf and KEY_NAME in
+vars. Defaults to ''.
 
 #### `key_ou`
 
-Determines the value for organizationalUnitName_default variable in openssl.cnf and KEY_OU in vars. Defaults to ''.
+Determines the value for organizationalUnitName_default variable in openssl.cnf
+and KEY_OU in vars. Defaults to ''.
 
 #### `server_port`
 
@@ -344,7 +366,8 @@ Determines the network to assign client addresses out of. Defaults to 'undef'.
 
 #### `server_push`
 
-Determines options to push out to the client. For example routes, DNS servers, DNS search domains and many more. Defaults to 'undef'.
+Determines options to push out to the client. For example routes, DNS servers,
+DNS search domains and many more. Defaults to 'undef'.
 
 #### `server_compression`
 
@@ -352,11 +375,13 @@ Determines if compression should be enabled. Defaults to 'true'.
 
 #### `server_user`
 
-Determines if privileges should be dropped to user 'nobody' after startup. Defaults to 'true'.
+Determines if privileges should be dropped to user 'nobody' after startup.
+Defaults to 'true'.
 
 #### `server_group`
 
-Determines if privileges should be dropped to group 'nogroup' after startup. Defaults to 'true'.
+Determines if privileges should be dropped to group 'nogroup' after startup.
+Defaults to 'true'.
 
 ### Parameters within `openvpn::client`
 
@@ -366,7 +391,8 @@ Determines the log mute level. Defaults to 'undef'.
 
 #### `mute_replay_warning`
 
-Determines if duplicate packet warnings should be silenced. Valid values are 'true' and 'false'. Defaults to 'false'.
+Determines if duplicate packet warnings should be silenced. Valid values are
+'true' and 'false'. Defaults to 'false'.
 
 ## Limitations
 
@@ -379,11 +405,13 @@ This module has been tested on:
 
 ### Bug Report
 
-If you find a bug, have trouble following the documentation or have a question about this module - please create an issue.
+If you find a bug, have trouble following the documentation or have a question
+about this module - please create an issue.
 
 ### Pull Request
 
-If you are able to patch the bug or add the feature yourself - please make a pull request.
+If you are able to patch the bug or add the feature yourself - please make a
+pull request.
 
 ### Contributors
 
