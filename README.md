@@ -1,10 +1,11 @@
 # openvpn
 
 [![Build Status](https://travis-ci.org/dhoppe/puppet-openvpn.png?branch=master)](https://travis-ci.org/dhoppe/puppet-openvpn)
+[![Code Coverage](https://coveralls.io/repos/github/dhoppe/puppet-openvpn/badge.svg?branch=master)](https://coveralls.io/github/dhoppe/puppet-openvpn)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/dhoppe/openvpn.svg)](https://forge.puppetlabs.com/dhoppe/openvpn)
-[![Puppet Forge](https://img.shields.io/puppetforge/dt/dhoppe/openvpn.svg)](https://forge.puppetlabs.com/dhoppe/openvpn)
-[![Puppet Forge](https://img.shields.io/puppetforge/mc/dhoppe.svg)](https://forge.puppetlabs.com/dhoppe)
-[![Puppet Forge](https://img.shields.io/puppetforge/rc/dhoppe.svg)](https://forge.puppetlabs.com/dhoppe)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/dhoppe/openvpn.svg)](https://forge.puppetlabs.com/dhoppe/openvpn)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/dhoppe/openvpn.svg)](https://forge.puppetlabs.com/dhoppe/openvpn)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/dhoppe/openvpn.svg)](https://forge.puppetlabs.com/dhoppe/openvpn)
 
 #### Table of Contents
 
