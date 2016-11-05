@@ -7,14 +7,14 @@ when 'Debian'
   service_name     = 'openvpn'
 end
 
-describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'openvpn', if: SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'is_expected.to work with no errors' do
     pp = <<-EOS
       class { 'openvpn': }
     EOS
 
-    apply_manifest(pp, :catch_failures => true)
-    apply_manifest(pp, :catch_changes => true)
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes: true)
   end
 
   describe 'openvpn::install' do
@@ -24,7 +24,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           class { 'openvpn': }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe package(package_name) do
@@ -40,7 +40,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe package(package_name) do
@@ -58,7 +58,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe package(package_name) do
@@ -83,7 +83,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :expect_failures => true)
+        apply_manifest(pp, expect_failures: true)
       end
 
       describe package(package_name) do
@@ -106,7 +106,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           class { 'openvpn': }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe file(config_file_path) do
@@ -122,7 +122,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe file(config_file_path) do
@@ -144,7 +144,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe file('/etc/default/openvpn') do
@@ -161,7 +161,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           class { 'openvpn': }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe service(service_name) do
@@ -178,7 +178,7 @@ describe 'openvpn', :if => SUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           }
         EOS
 
-        apply_manifest(pp, :catch_failures => true)
+        apply_manifest(pp, catch_failures: true)
       end
 
       describe service(service_name) do
