@@ -1,3 +1,9 @@
+## 2016-11-30 Release 0.3.3
+
+### Summary
+
+- [Beaker] Add missing dependency for Beaker tests
+
 ## 2016-11-06 Release 0.3.2
 
 ### Summary
