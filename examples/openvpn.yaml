@@ -10,6 +10,8 @@ openvpn::key_city: 'Muenster'
 openvpn::server_subnet: '192.168.57.0 255.255.255.0'
 openvpn::server_push:
   - 'route 172.17.0.0 255.255.0.0'
+openvpn::server_client_to_client: false
+openvpn::server_client_config_dir: false
 openvpn::clients_hash:
   'dhoppe':
     mute: undef # workaround to create empty hash

@@ -375,6 +375,15 @@ DNS search domains and many more. Defaults to 'undef'.
 
 Determines if compression should be enabled. Defaults to 'true'.
 
+#### `server_client_to_client`
+
+Enables the communication between clients
+
+#### `server_client_config_dir`
+
+Creates the client config dir folder ccd inside the config directory and
+enables the usage of this config files
+
 #### `server_user`
 
 Determines if privileges should be dropped to user 'nobody' after startup.
