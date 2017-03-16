@@ -13,6 +13,19 @@ class openvpn::config {
       require => $::openvpn::config_file_require,
     }
   }
+  if $::openvpn::server_client_config_dir {
+    file { "define_${name}_ccd":
+      ensure  => $::openvpn::config_dir_ensure,
+      path    => "$::openvpn::config_dir_path/ccd",
+      owner   => $::openvpn::config_file_owner,
+      group   => $::openvpn::config_file_group,
+      mode    => $::openvpn::config_file_mode,
+      #source  => $::openvpn::config_file_source,
+      #content => $::openvpn::config_file_content,
+      notify  => $::openvpn::config_file_notify,
+      #require => $::openvpn::config_file_require,
+    }
+  }
 
   if $::openvpn::config_file_path {
     exec { 'ca.key':
