@@ -53,7 +53,7 @@ class openvpn (
   $server_push              = undef,
   $server_client_to_client  = false,
   $server_client_config_dir = false,
-  $server_compression= true,
+  $server_compression       = true,
   $server_user              = true,
   $server_group             = true,
 ) inherits ::openvpn::params {

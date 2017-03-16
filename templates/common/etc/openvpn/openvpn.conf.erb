@@ -215,7 +215,7 @@ client-config-dir ccd
 # To force clients to only see the server, you
 # will also need to appropriately firewall the
 # server's TUN/TAP interface.
-<% if scope['::openvpn::server_client-to-client'] -%>
+<% if scope['::openvpn::server_client_to_client'] -%>
 client-to-client
 <% else -%>
 ;client-to-client
